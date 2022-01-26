@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 
 public class Car
 {
-    private float current_speed;
-    private float current_direction;
-    private float[] current_position;
+    private float current_speed { get ; private set; }
+    private float current_direction { get ; private set; }
+    private float[] current_position { get ; private set; }
 
-    public Car()
+    public Car(float current_speed = 0, float current_direction = 0, 
+               float[] current_position = new float[2] {0, 0})
     {
-        current_speed = 0;
-        current_direction = 0;
-        current_position = new float[2] {0, 0};
+        this.current_speed = current_speed;
+        this.current_direction = current_direction;
+        this.current_position = current_position;
     }
 
     public void Accelerate(float toSpeed) { }
