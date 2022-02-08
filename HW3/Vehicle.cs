@@ -1,42 +1,83 @@
 using System;
 
-public class Vehicle : DynamicRoadItem
+public abstract class Vehicle : DynamicRoadItem
 {
-    private float current_speed { get; private set; }
-    private float desired_speed { get; private set; }
-    private float current_direction { get; private set; }
-    private float[] current_position { get; private set; }
-    private int[] body_color { get; private set; }
+    private double currentSpeed = 0.0;
+    private double desiredSpeed;
 
-    public Vehicle(float current_speed = 0, float current_direction = 0, float desired_speed = -1,
-               float[] current_position = new float[2] {0, 0}, 
-               float[] body_color = new float[3] {255, 255, 255})
+    protected abstract void Accelerate(int secondsDelta);
+    protected abstract void Decelerate(int secondsDelta);
+
+    public double GetCurrentSpeed()
     {
-        this.current_speed = current_speed;
-        this.desired_speed = desired_speed == -1 ? current_speed : desired_speed;
-        this.current_direction = current_direction;
-        this.current_position = current_position;
-        this.body_color = body_color;
+        return currentSpeed;
     }
 
-    public void Brake(float toSpeed) { }
+    public void SetDesiredSpeed(double mph)
+    {
+        desiredSpeed = mph;
+    }
 
-    public void Turn(float direction, float degrees) { }
+    protected void SetCurrentSpeed(double speed)
+    {
+        if (currentSpeed <= speed)  // Accelerating
+        {
+            if (speed > desiredSpeed) {
+                currentSpeed = desiredSpeed;
+            } else {
+                currentSpeed = speed;
+            }
+        } else // Braking
+        {
+            if (speed < desiredSpeed) {
+                currentSpeed = desiredSpeed;
+            } else {
+                currentSpeed = speed;
+            }
+        } 
+    }
+
+    public void UpdateSpeed(int seconds)
+    {
+        if (currentSpeed > desiredSpeed) {
+            Decelerate(seconds);
+        } else if (currentSpeed < desiredSpeed) {
+            Accelerate(seconds);
+        }
+    }
 }
 
 public class Car : Vehicle
 {
+    protected override void Accelerate(int secondsDelta)
+    {
+        SetCurrentSpeed(GetCurrentSpeed() + Constants.AccRate * secondsDelta * Constants.MpsToMph);
+    }
 
+    protected override void Decelerate(int secondsDelta)
+    {
+        SetCurrentSpeed(GetCurrentSpeed() - Constants.DecRate * secondsDelta * Constants.MpsToMph);
+    }
 }
 
 public class Truck : Vehicle
 {
-    private float load_weight;
+    private int loadWeight;  // in tons
 
-    public Truck()
+    public Truck(int weight)
     {
-        load_weight = 0;
+        loadWeight = weight;
     }
 
-    public void SetLoadWeight(float weight) { }
+    protected override void Accelerate(int secondsDelta)
+    {
+        double accRate = loadWeight <= 5 ? Constants.AccRateEmpty : Constants.AccRateFull;
+        SetCurrentSpeed(GetCurrentSpeed() + accRate * secondsDelta * Constants.MpsToMph);
+    }
+
+    protected override void Decelerate(int secondsDelta)
+    {
+        double decRate = loadWeight <= 5 ? Constants.DecRateEmpty : Constants.DecRateFull;
+        SetCurrentSpeed(GetCurrentSpeed() - decRate * secondsDelta * Constants.MpsToMph);
+    }
 }
