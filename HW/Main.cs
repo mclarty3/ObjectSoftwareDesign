@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 
-namespace HW3_2021_OOP
+namespace HW_2021_OOP
 {
     class Program
     {
         static void Main(string[] args)
         {
+            ISimOutput simOutput = new MetricOutput();
             Car car = new Car(); car.SetDesiredSpeed(65.0);
             Truck truck1 = new Truck(4); truck1.SetDesiredSpeed(55.0);
             Truck truck2 = new Truck(8); truck2.SetDesiredSpeed(50.0);
@@ -20,7 +21,7 @@ namespace HW3_2021_OOP
                 {
                     v.UpdateSpeed(1);
                     string vehicleType = v.GetType().ToString();
-                    Console.WriteLine("{0} speed: {1:F} mph", vehicleType, v.GetCurrentSpeed());
+                    Console.WriteLine("{0} speed: {1:F} kmph", vehicleType, simOutput.GetSpeed(v));
                 }
             }
             Console.Read();  // To keep terminal open after iteration is complete

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ryan McLarty\\Documents\\School\\Spring22\\ObjectSoftwareDesign\\HWs\\HW3\\app.csproj": {}
+    "C:\\Users\\Ryan McLarty\\Documents\\School\\Spring22\\ObjectSoftwareDesign\\HWs\\HW\\app.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ryan McLarty\\Documents\\School\\Spring22\\ObjectSoftwareDesign\\HWs\\HW3\\app.csproj": {
+    "C:\\Users\\Ryan McLarty\\Documents\\School\\Spring22\\ObjectSoftwareDesign\\HWs\\HW\\app.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ryan McLarty\\Documents\\School\\Spring22\\ObjectSoftwareDesign\\HWs\\HW3\\app.csproj",
+        "projectUniqueName": "C:\\Users\\Ryan McLarty\\Documents\\School\\Spring22\\ObjectSoftwareDesign\\HWs\\HW\\app.csproj",
         "projectName": "app",
-        "projectPath": "C:\\Users\\Ryan McLarty\\Documents\\School\\Spring22\\ObjectSoftwareDesign\\HWs\\HW3\\app.csproj",
+        "projectPath": "C:\\Users\\Ryan McLarty\\Documents\\School\\Spring22\\ObjectSoftwareDesign\\HWs\\HW\\app.csproj",
         "packagesPath": "C:\\Users\\Ryan McLarty\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ryan McLarty\\Documents\\School\\Spring22\\ObjectSoftwareDesign\\HWs\\HW3\\obj\\",
+        "outputPath": "C:\\Users\\Ryan McLarty\\Documents\\School\\Spring22\\ObjectSoftwareDesign\\HWs\\HW\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Ryan McLarty\\AppData\\Roaming\\NuGet\\NuGet.Config",
