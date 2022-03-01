@@ -19,9 +19,12 @@ namespace HW_2021_OOP
         static void Main(string[] args)
         {
             GUI gui = getUnitSystem();
-            Car car = new Car(); car.SetDesiredSpeed(65.0);
-            Truck truck1 = new Truck(4); truck1.SetDesiredSpeed(55.0);
-            Truck truck2 = new Truck(8); truck2.SetDesiredSpeed(50.0);
+            Car car = new Car();
+            gui.SetSpeedLimit(car, 65.0);
+            Truck truck1 = new Truck(4);
+            gui.SetSpeedLimit(truck1, 55.0);
+            Truck truck2 = new Truck(8); 
+            gui.SetSpeedLimit(truck2, 50.0);
 
             List<Vehicle> vehicles = new List<Vehicle>();
             vehicles.Add(car); vehicles.Add(truck1); vehicles.Add(truck2);
