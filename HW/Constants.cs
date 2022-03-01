@@ -8,5 +8,6 @@ static class Constants
     public const double DecRate = 7.0;          // Braking rate for cars in m/s
     public const double DecRateEmpty = 5.0;     // Braking rate for light trucks in m/s
     public const double DecRateFull = 2.0;      // Braking rate for light trucks in m/s
-    public const double MpsToMph = 2.237;
+    public const double MpsToKph = 3.6;         // Conversion factor from m/s to km/h
+    public const double MpsToMph = 2.23694;     // Conversion factor from m/s to mph
 }

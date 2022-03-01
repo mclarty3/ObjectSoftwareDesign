@@ -34,7 +34,7 @@ public abstract class Vehicle : DynamicRoadItem
             } else {
                 currentSpeed = speed;
             }
-        } 
+        }
     }
 
     public void UpdateSpeed(int seconds)
@@ -51,12 +51,12 @@ public class Car : Vehicle
 {
     protected override void Accelerate(int secondsDelta)
     {
-        SetCurrentSpeed(GetCurrentSpeed() + Constants.AccRate * secondsDelta * Constants.MpsToMph);
+        SetCurrentSpeed(GetCurrentSpeed() + Constants.AccRate * secondsDelta);
     }
 
     protected override void Decelerate(int secondsDelta)
     {
-        SetCurrentSpeed(GetCurrentSpeed() - Constants.DecRate * secondsDelta * Constants.MpsToMph);
+        SetCurrentSpeed(GetCurrentSpeed() - Constants.DecRate * secondsDelta);
     }
 }
 
@@ -72,12 +72,12 @@ public class Truck : Vehicle
     protected override void Accelerate(int secondsDelta)
     {
         double accRate = loadWeight <= 5 ? Constants.AccRateEmpty : Constants.AccRateFull;
-        SetCurrentSpeed(GetCurrentSpeed() + accRate * secondsDelta * Constants.MpsToMph);
+        SetCurrentSpeed(GetCurrentSpeed() + accRate * secondsDelta);
     }
 
     protected override void Decelerate(int secondsDelta)
     {
         double decRate = loadWeight <= 5 ? Constants.DecRateEmpty : Constants.DecRateFull;
-        SetCurrentSpeed(GetCurrentSpeed() - decRate * secondsDelta * Constants.MpsToMph);
+        SetCurrentSpeed(GetCurrentSpeed() - decRate * secondsDelta);
     }
 }

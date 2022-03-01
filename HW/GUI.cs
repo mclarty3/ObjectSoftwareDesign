@@ -1,7 +1,8 @@
 using System;
 
-public class GUI 
+public abstract class GUI : ISimInput, ISimOutput
 {
-    private Simulation simulation;
-    private Map map;
+    public virtual string speedUnit { get; }
+    public abstract void SetSpeedLimit(Vehicle v, double speed);
+    public abstract double GetSpeed(Vehicle v);
 }
