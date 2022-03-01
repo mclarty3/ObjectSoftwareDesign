@@ -5,9 +5,20 @@ namespace HW_2021_OOP
 {
     class Program
     {
+        static GUI getUnitSystem()
+        {
+            string input = "";
+            while (input != "imperial" && input != "metric")
+            {
+                Console.WriteLine("Please enter imperial or metric");
+                input = Console.ReadLine();
+            }
+            return input == "imperial" ? new ImperialGUI() : new MetricGUI();
+        }
+
         static void Main(string[] args)
         {
-            ISimOutput simOutput = new MetricOutput();
+            GUI gui = getUnitSystem();
             Car car = new Car(); car.SetDesiredSpeed(65.0);
             Truck truck1 = new Truck(4); truck1.SetDesiredSpeed(55.0);
             Truck truck2 = new Truck(8); truck2.SetDesiredSpeed(50.0);
@@ -21,7 +32,7 @@ namespace HW_2021_OOP
                 {
                     v.UpdateSpeed(1);
                     string vehicleType = v.GetType().ToString();
-                    Console.WriteLine("{0} speed: {1:F} kmph", vehicleType, simOutput.GetSpeed(v));
+                    Console.WriteLine("{0} speed: {1:F} {2}", vehicleType, gui.GetSpeed(v), gui.speedUnit);
                 }
             }
             Console.Read();  // To keep terminal open after iteration is complete
