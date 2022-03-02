@@ -10,4 +10,8 @@ static class Constants
     public const double DecRateFull = 2.0;      // Braking rate for light trucks in m/s
     public const double MpsToKph = 3.6;         // Conversion factor from m/s to km/h
     public const double MpsToMph = 2.23694;     // Conversion factor from m/s to mph
+
+    public const int CharMapSize = 800;         // Size of the map in characters
+    public const int PixelMapSize = 800;        // Size of the map in pixels
+    public const int WorldSize = 100;           // Size of the world in km
 }
