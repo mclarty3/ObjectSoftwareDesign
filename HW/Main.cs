@@ -55,6 +55,7 @@ namespace HW_2021_OOP
                 string s = new string(cm.map[i]);
                 Console.WriteLine(s);
             }
+            Console.Read();
         }
 
         public double GetSpeed(Vehicle v)
