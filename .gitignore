@@ -1,10 +1,3 @@
 .vscode/
 obj/
-
-# Ignore all bin files except for app.exe
-HW/bin/*
-!HW/bin/Debug/
-HW/bin/Debug/*
-!HW/bin/Debug/net5.0/
-HW/bin/Debug/net5.0/*
-!HW/bin/Debug/net5.0/app.exe
+bin/
