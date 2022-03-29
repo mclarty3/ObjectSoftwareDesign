@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
 
-interface ISimInput
+namespace HW_2021_OOP
 {
-    void SetSpeedLimit(Vehicle v, double speed);
+    interface ISimInput
+    {
+        void SetSpeedLimit(Vehicle v, double speed);
+    }
 }

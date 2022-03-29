@@ -1,6 +1,9 @@
 using System;
 
-public class Timer 
+namespace HW_2021_OOP
 {
-    public Timer() {}
+    public class Timer
+    {
+        public Timer() {}
+    }
 }

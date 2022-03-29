@@ -1,11 +1,14 @@
 using System;
 
-public class DynamicRoadItem : RoadItem
+namespace HW_2021_OOP
 {
+	public class DynamicRoadItem : RoadItem
+	{
 
-}
+	}
 
-public class TrafficLight : DynamicRoadItem
-{
+	public class TrafficLight : DynamicRoadItem
+	{
 
+	}
 }

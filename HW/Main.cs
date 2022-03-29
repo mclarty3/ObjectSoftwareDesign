@@ -3,8 +3,9 @@ using System.Collections.Generic;
 
 namespace HW_2021_OOP
 {
-    class Program
+    class Program : ISimInput, ISimOutput
     {
+
         static GUI getUnitSystem()
         {
             string input = "";
@@ -18,24 +19,52 @@ namespace HW_2021_OOP
 
         static void Main(string[] args)
         {
-            GUI gui = getUnitSystem();
-            Car car = new Car(); car.SetDesiredSpeed(65.0);
-            Truck truck1 = new Truck(4); truck1.SetDesiredSpeed(55.0);
-            Truck truck2 = new Truck(8); truck2.SetDesiredSpeed(50.0);
+            GUI simInput;
+            Map map = new Map();
+            IPrintDriver cp = new ConsolePrint();
+            //Console.Write("Enter 'M' for metric or 'I' for Imperial: ");
+            //string units = Console.ReadLine();
+            //Console.Write("Enter speed limit: ");
+            //double speedLimit = Convert.ToDouble(Console.ReadLine());
+            //if (units == "I") gui = new ImperialGUI();
+            //else gui = new MetricGUI();
+            //Car car = new Car(); gui.SetSpeedLimit(car, speedLimit);
+            //Truck truck1 = new Truck(4); gui.SetSpeedLimit(truck1, speedLimit);
+            //Truck truck2 = new Truck(8); gui.SetSpeedLimit(truck2, speedLimit);
+            //List<Vehicle> vehicles = new List<Vehicle>();
+            //vehicles.Add(car); vehicles.Add(truck1); vehicles.Add(truck2);
+            //for (int i = 0; i < 11; i++)
+            //{
+            //    foreach (Vehicle v in vehicles)
+            //    {
+            //        v.UpdateSpeed(1);
+            //        string s = v.GetType().ToString();
+            //        Console.WriteLine("{0} speed: {1:F}", s, gui.GetSpeed(v));
+            //    }
+            //}
+            simInput = new MetricGUI();
+            Road Uptown = simInput.CreateRoad("Uptown", 0.0, -0.09, .180, Heading.North);
+            map.AddRoad(Uptown);
+            Road Crosstown = simInput.CreateRoad("Crosstown", -0.09, 0.0, .180, Heading.East);
+            map.AddRoad(Crosstown);
 
-            List<Vehicle> vehicles = new List<Vehicle>();
-            vehicles.Add(car); vehicles.Add(truck1); vehicles.Add(truck2);
-
-            for (int i = 0; i < 11; i++)
+            CharMatrix cm = new CharMatrix();
+            map.Print(cp, cm);
+            for (int i = 0; i < Constants.CharMapSize; i++)
             {
-                foreach (Vehicle v in vehicles)
-                {
-                    v.UpdateSpeed(1);
-                    string vehicleType = v.GetType().ToString();
-                    Console.WriteLine("{0} speed: {1:F} {2}", vehicleType, gui.GetSpeed(v), gui.speedUnit);
-                }
+                string s = new string(cm.map[i]);
+                Console.WriteLine(s);
             }
-            Console.Read();  // To keep terminal open after iteration is complete
+        }
+
+        public double GetSpeed(Vehicle v)
+        {
+            return v.GetCurrentSpeed() * Constants.MpsToMph;
+        }
+
+        public void SetSpeedLimit(Vehicle v, double speed)
+        {
+            v.SetDesiredSpeed(speed / Constants.MpsToMph);
         }
     }
 }

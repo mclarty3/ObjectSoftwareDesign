@@ -1,7 +1,28 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-public class Map
+namespace HW_2021_OOP
 {
-    private List<Road> roads;
+    class Map
+    {
+        private List<Road> roads;
+
+        public Map()
+        {
+            roads = new List<Road>();
+        }
+
+        public void AddRoad(Road road)
+        {
+            roads.Add(road);
+        }
+
+        public void Print(IPrintDriver pd, Object o)
+        {
+            foreach (Road road in roads)
+            {
+                road.Print(pd, o);
+            }
+        }
+    }
 }
