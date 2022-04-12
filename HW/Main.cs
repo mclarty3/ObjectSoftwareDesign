@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace HW_2021_OOP
 {
@@ -20,8 +21,17 @@ namespace HW_2021_OOP
         static void Main(string[] args)
         {
             GUI simInput;
-            Map map = new Map();
+            // Map map = new Map();
+
+			Map map;
+            using (StreamReader r = new StreamReader("map.json"))
+            {
+                string json = r.ReadToEnd();
+                map = Map.FromJson(json);
+            }
+
             IPrintDriver cp = new ConsolePrint();
+            IPrintDriver dp = new DebugPrint();
             //Console.Write("Enter 'M' for metric or 'I' for Imperial: ");
             //string units = Console.ReadLine();
             //Console.Write("Enter speed limit: ");
@@ -43,10 +53,14 @@ namespace HW_2021_OOP
             //    }
             //}
             simInput = new MetricGUI();
-            Road Uptown = simInput.CreateRoad("Uptown", 0.0, -0.09, .180, Heading.North);
-            map.AddRoad(Uptown);
-            Road Crosstown = simInput.CreateRoad("Crosstown", -0.09, 0.0, .180, Heading.East);
-            map.AddRoad(Crosstown);
+
+            // Road Uptown = simInput.CreateRoad("Uptown", 0.0, -0.09, .180, Heading.North);
+            // map.AddRoad(Uptown);
+            // Road Crosstown = simInput.CreateRoad("Crosstown", -0.09, 0.0, .180, Heading.East);
+            // map.AddRoad(Crosstown);
+
+            // map.ToJson("Crossroads.json");
+
 
             CharMatrix cm = new CharMatrix();
             map.Print(cp, cm);

@@ -87,4 +87,18 @@ namespace HW_2021_OOP
 
         }
     }
+
+    class DebugPrint : IPrintDriver
+    {
+        public void PrintRoad(Road road, Object o)
+        {
+            Console.WriteLine("Road: " + road.GetRoadName() + "\t" + road.GetXLocation() + "\t" + road.GetYLocation() +
+                              "\t" + road.GetLength() + "\t" + road.GetHeading());
+        }
+
+        public void PrintCar(Car car, Object o)
+        {
+            // Console.WriteLine("Car: " + car.GetCarName() + " " + car.GetXLocation() + " " + car.GetYLocation() + " " + car.GetHeading());
+        }
+    }
 }

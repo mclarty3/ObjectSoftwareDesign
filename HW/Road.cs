@@ -1,5 +1,5 @@
 ﻿using System;
-
+using Newtonsoft.Json;
 
 namespace HW_2021_OOP
 {
@@ -7,11 +7,16 @@ namespace HW_2021_OOP
     public class Road
     {
         //private RoadItem head;
-        private string name;
-        private double length;
-        private double xlocation;
-        private double ylocation;
-        private Heading heading;
+        [JsonProperty("Name")]
+        private string name { get; set; }
+        [JsonProperty("Length")]
+        private double length { get; set; }
+        [JsonProperty("XLocation")]
+        private double xlocation { get; set; }
+        [JsonProperty("YLocation")]
+        private double ylocation { get; set; }
+        [JsonProperty("Heading")]
+        private Heading heading { get; set; }
         public static int NumOfRoads = 0;
 
         public Road(string streetName, double locX, double locY, double len, Heading hdg)
