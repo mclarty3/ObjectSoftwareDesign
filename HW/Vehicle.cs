@@ -1,83 +1,86 @@
 using System;
 
-public abstract class Vehicle : DynamicRoadItem
+namespace HW_2021_OOP
 {
-    private double currentSpeed = 0.0;
-    private double desiredSpeed;
-
-    protected abstract void Accelerate(int secondsDelta);
-    protected abstract void Decelerate(int secondsDelta);
-
-    public double GetCurrentSpeed()
+    public abstract class Vehicle : DynamicRoadItem
     {
-        return currentSpeed;
-    }
+        private double currentSpeed = 0.0;
+        private double desiredSpeed;
 
-    public void SetDesiredSpeed(double mph)
-    {
-        desiredSpeed = mph;
-    }
+        protected abstract void Accelerate(int secondsDelta);
+        protected abstract void Decelerate(int secondsDelta);
 
-    protected void SetCurrentSpeed(double speed)
-    {
-        if (currentSpeed <= speed)  // Accelerating
+        public double GetCurrentSpeed()
         {
-            if (speed > desiredSpeed) {
-                currentSpeed = desiredSpeed;
-            } else {
-                currentSpeed = speed;
+            return currentSpeed;
+        }
+
+        public void SetDesiredSpeed(double mph)
+        {
+            desiredSpeed = mph;
+        }
+
+        protected void SetCurrentSpeed(double speed)
+        {
+            if (currentSpeed <= speed)  // Accelerating
+            {
+                if (speed > desiredSpeed) {
+                    currentSpeed = desiredSpeed;
+                } else {
+                    currentSpeed = speed;
+                }
+            } else // Braking
+            {
+                if (speed < desiredSpeed) {
+                    currentSpeed = desiredSpeed;
+                } else {
+                    currentSpeed = speed;
+                }
             }
-        } else // Braking
+        }
+
+        public void UpdateSpeed(int seconds)
         {
-            if (speed < desiredSpeed) {
-                currentSpeed = desiredSpeed;
-            } else {
-                currentSpeed = speed;
+            if (currentSpeed > desiredSpeed) {
+                Decelerate(seconds);
+            } else if (currentSpeed < desiredSpeed) {
+                Accelerate(seconds);
             }
         }
     }
 
-    public void UpdateSpeed(int seconds)
+    public class Car : Vehicle
     {
-        if (currentSpeed > desiredSpeed) {
-            Decelerate(seconds);
-        } else if (currentSpeed < desiredSpeed) {
-            Accelerate(seconds);
+        protected override void Accelerate(int secondsDelta)
+        {
+            SetCurrentSpeed(GetCurrentSpeed() + Constants.AccRate * secondsDelta);
+        }
+
+        protected override void Decelerate(int secondsDelta)
+        {
+            SetCurrentSpeed(GetCurrentSpeed() - Constants.DecRate * secondsDelta);
         }
     }
-}
 
-public class Car : Vehicle
-{
-    protected override void Accelerate(int secondsDelta)
+    public class Truck : Vehicle
     {
-        SetCurrentSpeed(GetCurrentSpeed() + Constants.AccRate * secondsDelta);
-    }
+        private int loadWeight;  // in tons
 
-    protected override void Decelerate(int secondsDelta)
-    {
-        SetCurrentSpeed(GetCurrentSpeed() - Constants.DecRate * secondsDelta);
-    }
-}
+        public Truck(int weight)
+        {
+            loadWeight = weight;
+        }
 
-public class Truck : Vehicle
-{
-    private int loadWeight;  // in tons
+        protected override void Accelerate(int secondsDelta)
+        {
+            double accRate = loadWeight <= 5 ? Constants.AccRateEmpty : Constants.AccRateFull;
+            SetCurrentSpeed(GetCurrentSpeed() + accRate * secondsDelta);
+        }
 
-    public Truck(int weight)
-    {
-        loadWeight = weight;
-    }
-
-    protected override void Accelerate(int secondsDelta)
-    {
-        double accRate = loadWeight <= 5 ? Constants.AccRateEmpty : Constants.AccRateFull;
-        SetCurrentSpeed(GetCurrentSpeed() + accRate * secondsDelta);
-    }
-
-    protected override void Decelerate(int secondsDelta)
-    {
-        double decRate = loadWeight <= 5 ? Constants.DecRateEmpty : Constants.DecRateFull;
-        SetCurrentSpeed(GetCurrentSpeed() - decRate * secondsDelta);
+        protected override void Decelerate(int secondsDelta)
+        {
+            double decRate = loadWeight <= 5 ? Constants.DecRateEmpty : Constants.DecRateFull;
+            SetCurrentSpeed(GetCurrentSpeed() - decRate * secondsDelta);
+        }
     }
 }

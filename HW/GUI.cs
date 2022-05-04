@@ -1,8 +1,11 @@
 using System;
 
-public abstract class GUI : ISimInput, ISimOutput
+namespace HW_2021_OOP
 {
-    public virtual string speedUnit { get; }
-    public abstract void SetSpeedLimit(Vehicle v, double speed);
-    public abstract double GetSpeed(Vehicle v);
+    abstract class GUI : ISimInput, ISimOutput
+    {
+        public abstract Road CreateRoad(string name, double locx, double locy, double len, Heading hdg);
+        public abstract double GetSpeed(Vehicle v);
+        public abstract void SetSpeedLimit(Vehicle v, double speed);
+    }
 }

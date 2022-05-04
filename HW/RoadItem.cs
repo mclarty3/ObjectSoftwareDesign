@@ -1,6 +1,9 @@
 using System;
 
-public class RoadItem 
+namespace HW_2021_OOP
 {
+	public class RoadItem
+	{
 
+	}
 }

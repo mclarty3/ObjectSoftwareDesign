@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
 
-interface ISimOutput
+namespace HW_2021_OOP
 {
-    double GetSpeed(Vehicle v);
+    interface ISimOutput
+    {
+        double GetSpeed(Vehicle v);
+    }
 }

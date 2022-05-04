@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace HW_2021_OOP
 {
-    class Program
+    class Program : ISimInput, ISimOutput
     {
+
         static GUI getUnitSystem()
         {
             string input = "";
@@ -18,27 +20,66 @@ namespace HW_2021_OOP
 
         static void Main(string[] args)
         {
-            GUI gui = getUnitSystem();
-            Car car = new Car();
-            gui.SetSpeedLimit(car, 65.0);
-            Truck truck1 = new Truck(4);
-            gui.SetSpeedLimit(truck1, 55.0);
-            Truck truck2 = new Truck(8); 
-            gui.SetSpeedLimit(truck2, 50.0);
+            GUI simInput;
+            // Map map = new Map();
 
-            List<Vehicle> vehicles = new List<Vehicle>();
-            vehicles.Add(car); vehicles.Add(truck1); vehicles.Add(truck2);
-
-            for (int i = 0; i < 11; i++)
+			Map map;
+            using (StreamReader r = new StreamReader("map.json"))
             {
-                foreach (Vehicle v in vehicles)
-                {
-                    v.UpdateSpeed(1);
-                    string vehicleType = v.GetType().ToString();
-                    Console.WriteLine("{0} speed: {1:F} {2}", vehicleType, gui.GetSpeed(v), gui.speedUnit);
-                }
+                string json = r.ReadToEnd();
+                map = Map.FromJson(json);
             }
-            Console.Read();  // To keep terminal open after iteration is complete
+
+            IPrintDriver cp = new ConsolePrint();
+            IPrintDriver dp = new DebugPrint();
+            //Console.Write("Enter 'M' for metric or 'I' for Imperial: ");
+            //string units = Console.ReadLine();
+            //Console.Write("Enter speed limit: ");
+            //double speedLimit = Convert.ToDouble(Console.ReadLine());
+            //if (units == "I") gui = new ImperialGUI();
+            //else gui = new MetricGUI();
+            //Car car = new Car(); gui.SetSpeedLimit(car, speedLimit);
+            //Truck truck1 = new Truck(4); gui.SetSpeedLimit(truck1, speedLimit);
+            //Truck truck2 = new Truck(8); gui.SetSpeedLimit(truck2, speedLimit);
+            //List<Vehicle> vehicles = new List<Vehicle>();
+            //vehicles.Add(car); vehicles.Add(truck1); vehicles.Add(truck2);
+            //for (int i = 0; i < 11; i++)
+            //{
+            //    foreach (Vehicle v in vehicles)
+            //    {
+            //        v.UpdateSpeed(1);
+            //        string s = v.GetType().ToString();
+            //        Console.WriteLine("{0} speed: {1:F}", s, gui.GetSpeed(v));
+            //    }
+            //}
+            simInput = new MetricGUI();
+
+            // Road Uptown = simInput.CreateRoad("Uptown", 0.0, -0.09, .180, Heading.North);
+            // map.AddRoad(Uptown);
+            // Road Crosstown = simInput.CreateRoad("Crosstown", -0.09, 0.0, .180, Heading.East);
+            // map.AddRoad(Crosstown);
+
+            // map.ToJson("Crossroads.json");
+
+
+            CharMatrix cm = new CharMatrix();
+            map.Print(cp, cm);
+            for (int i = 0; i < Constants.CharMapSize; i++)
+            {
+                string s = new string(cm.map[i]);
+                Console.WriteLine(s);
+            }
+            Console.Read();
+        }
+
+        public double GetSpeed(Vehicle v)
+        {
+            return v.GetCurrentSpeed() * Constants.MpsToMph;
+        }
+
+        public void SetSpeedLimit(Vehicle v, double speed)
+        {
+            v.SetDesiredSpeed(speed / Constants.MpsToMph);
         }
     }
 }
