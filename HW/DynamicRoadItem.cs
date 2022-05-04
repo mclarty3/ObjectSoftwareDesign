@@ -2,7 +2,7 @@ using System;
 
 namespace HW_2021_OOP
 {
-	public class DynamicRoadItem : RoadItem
+	public abstract class DynamicRoadItem : RoadItem
 	{
 
 	}

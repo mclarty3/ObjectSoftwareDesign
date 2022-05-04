@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace HW_2021_OOP
@@ -17,6 +18,10 @@ namespace HW_2021_OOP
         private double ylocation { get; set; }
         [JsonProperty("Heading")]
         private Heading heading { get; set; }
+        [JsonProperty("RoadItems")]
+        private List<RoadItem> roadItems { get; set; }
+        private RoadItem head;
+
         public static int NumOfRoads = 0;
 
         public Road(string streetName, double locX, double locY, double len, Heading hdg)
@@ -29,6 +34,7 @@ namespace HW_2021_OOP
             heading = hdg;
             xlocation = locX;
             ylocation = locY;
+
             NumOfRoads++;
         }
 
@@ -42,43 +48,42 @@ namespace HW_2021_OOP
 
         public string GetRoadName() { return name; }
 
-        //public void AddRoadItem(RoadItem roadItem)
-        //{
-        //    roadItem.SetCurrentRoad(this);
-        //    RoadItem currentItem = head;
-        //    while (currentItem.GetNext() != null)
-        //    {
-        //        currentItem = currentItem.GetNext();
-        //        if (currentItem.GetMileMarker() > roadItem.GetMileMarker())
-        //        {
-        //            InsertNewItemBefore(currentItem, roadItem);
-        //            return;
-        //        }
-        //    }
-        //    InsertNewItemAfter(currentItem, roadItem);
-        //}
+        public void AddRoadItem(RoadItem roadItem)
+        {
+           roadItem.SetCurrentRoad(this);
+           RoadItem currentItem = head;
+           while (currentItem.GetNext() != null)
+           {
+               currentItem = currentItem.GetNext();
+               if (currentItem.GetMileMarker() > roadItem.GetMileMarker())
+               {
+                   InsertNewItemBefore(currentItem, roadItem);
+                   return;
+               }
+           }
+           InsertNewItemAfter(currentItem, roadItem);
+        }
 
         public void Print(IPrintDriver print, Object o)
         {
             print.PrintRoad(this, o);
         }
 
-        //    private void InsertNewItemBefore(RoadItem current, RoadItem newItem)
-        //    {
-        //        newItem.SetPrevious(current.GetPrevious());
-        //        newItem.SetNext(current);
-        //        current.SetPrevious(newItem);
-        //        newItem.GetPrevious().SetNext(newItem);
-        //    }
+        private void InsertNewItemBefore(RoadItem current, RoadItem newItem)
+        {
+            newItem.SetPrevious(current.GetPrevious());
+            newItem.SetNext(current);
+            current.SetPrevious(newItem);
+            newItem.GetPrevious().SetNext(newItem);
+        }
 
-        //    private void InsertNewItemAfter(RoadItem current, RoadItem newItem)
-        //    {
-        //        newItem.SetNext(current.GetNext());
-        //        current.SetNext(newItem);
-        //        newItem.SetPrevious(current);
-        //        if (newItem.GetNext() != null) newItem.GetNext().SetPrevious(newItem);
-        //    }
-        //}
+        private void InsertNewItemAfter(RoadItem current, RoadItem newItem)
+        {
+            newItem.SetNext(current.GetNext());
+            current.SetNext(newItem);
+            newItem.SetPrevious(current);
+            if (newItem.GetNext() != null) newItem.GetNext().SetPrevious(newItem);
+        }
     }
 }
 

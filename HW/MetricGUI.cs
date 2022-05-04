@@ -19,5 +19,15 @@ namespace HW_2021_OOP
         {
             v.SetDesiredSpeed(speed / Constants.MpsToKph);
         }
+
+        public override SpeedLimit CreateSpeedLimit(double speed, double location = 0)
+        {
+            return new SpeedLimit(speed / Constants.MpsToKph, location / Constants.MetersToKm);
+        }
+
+        public override StopSign CreateStopSign(double location = 0)
+        {
+            return new StopSign(location / Constants.MetersToKm);
+        }
     }
 }

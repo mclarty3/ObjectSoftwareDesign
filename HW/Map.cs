@@ -7,7 +7,7 @@ using System.IO;
 
 namespace HW_2021_OOP
 {
-    class Map
+    public class Map
     {
         [JsonProperty("Roads")]
         private List<Road> roads;
