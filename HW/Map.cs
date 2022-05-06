@@ -18,6 +18,8 @@ namespace HW_2021_OOP
 
 		public List<Road> GetRoads() { return roads; }
 
+		// Interestingly, reading the JSON for the Roads works, and reading the JSON for individual lists of RoadItems
+        // works, but reading the JSON for the entire map fails to read the RoadItems :/
         public static Map FromJson(string json, GUI gui)
         {
             JObject jObject = JObject.Parse(json);
@@ -70,6 +72,7 @@ namespace HW_2021_OOP
             return map;
         }
 
+		// Similar problem--have to write the JSONs for the RoadItems separately and insert them into the main JSON.
         public void ToJson(string filename, GUI gui)
         {
             using (StreamWriter sw = new StreamWriter(filename))
