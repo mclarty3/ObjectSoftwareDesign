@@ -113,11 +113,11 @@ namespace HW_2021_OOP
             roads.Add(road);
         }
 
-        public void Print(IPrintDriver pd, Object o)
+        public void Print(IPrintDriver pd, Object o, GUI gui)
         {
             foreach (Road road in roads)
             {
-                road.Print(pd, o);
+                road.Print(pd, o, gui);
             }
         }
 

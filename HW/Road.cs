@@ -81,12 +81,12 @@ namespace HW_2021_OOP
             InsertNewItemAfter(currentItem, roadItem);
         }
 
-        public void Print(IPrintDriver print, Object o)
+        public void Print(IPrintDriver print, Object o, GUI gui)
         {
             print.PrintRoad(this, o);
             foreach (RoadItem item in GetRoadItems())
             {
-                print.PrintRoadItem(item, o);
+                print.PrintRoadItem(item, o, gui);
             }
         }
 

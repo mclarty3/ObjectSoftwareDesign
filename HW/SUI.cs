@@ -24,7 +24,7 @@ namespace HW_2021_OOP
     {
         void PrintRoad(Road road, Object o);
         void PrintCar(Car car, Object o);
-        void PrintRoadItem(RoadItem roadItem, Object o);
+        void PrintRoadItem(RoadItem roadItem, Object o, GUI gui);
     }
 
     class ConsolePrint : IPrintDriver
@@ -89,7 +89,7 @@ namespace HW_2021_OOP
 
         }
 
-        public void PrintRoadItem(RoadItem roadItem, Object o)
+        public void PrintRoadItem(RoadItem roadItem, Object o, GUI gui)
         {
             CharMatrix cm = (CharMatrix)o;
             Road thisRoad = roadItem.GetCurrentRoad();
@@ -118,7 +118,7 @@ namespace HW_2021_OOP
 
             else return;
 
-            char[] chars = roadItem.GetChar();
+            char[] chars = gui.GetInterfaceUnitRoadItem(roadItem).GetChar();
             if (x - chars.Length >= 0 && x < Constants.CharMapSize && y >= 0 && y < Constants.CharMapSize)
             {
                 for (int i = 0; i < chars.Length; i++)
@@ -161,7 +161,7 @@ namespace HW_2021_OOP
 
         }
 
-        public void PrintRoadItem(RoadItem roadItem, Object o)
+        public void PrintRoadItem(RoadItem roadItem, Object o, GUI gui)
         {
 
         }

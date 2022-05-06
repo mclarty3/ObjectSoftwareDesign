@@ -67,12 +67,12 @@ namespace HW_2021_OOP
 
             Road Crosstown = map.GetRoads().First(r => r.GetName() == "Crosstown");
             Crosstown.AddRoadItem(gui.CreateStopSign(170));
-            Crosstown.AddRoadItem(gui.CreateSpeedLimit(22, 160));
+            Crosstown.AddRoadItem(gui.CreateSpeedLimit(22, 155));
 
             map.ToJson("finalOutput.json", gui);
 
             CharMatrix cm = new CharMatrix();
-            map.Print(cp, cm);
+            map.Print(cp, cm, gui);
             for (int i = 0; i < Constants.CharMapSize; i++)
             {
                 string s = new string(cm.map[i]);

@@ -46,7 +46,7 @@
         {
           "Type": "SpeedLimit",
           "SpeedLimit": 22.0,
-          "MileMarker": 160.0
+          "MileMarker": 155.0
         },
         {
           "Type": "StopSign",
