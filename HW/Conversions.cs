@@ -8,14 +8,23 @@ namespace HW_2021_OOP
 {
     static class Conversions
     {
-        public static int WCpointToCCpoint(double val)
+        public static int WCpointToCCpoint(double val, double maxWorldSize = Constants.WorldSize)
         {
-            return (int)(val * (Constants.CharMapSize / Constants.WorldSize) + (Constants.CharMapSize / 2));
+            return (int)(val * (Constants.CharMapSize / maxWorldSize) + (Constants.CharMapSize / 2));
         }
 
-        public static int WClengthToCClength(double val)
+        public static int WClengthToCClength(double val, double maxWorldSize = Constants.WorldSize)
         {
-            return (int)(val * (Constants.CharMapSize / Constants.WorldSize));
+            return (int)(val * (Constants.CharMapSize / maxWorldSize));
         }
     }
 }
+
+/*
+
+200 mi x 200 mi
+40 x 40 chars map
+
+50 mi = 10 chars + 20 = 30 chars
+
+*/

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using JsonSubTypes;
 
 namespace HW_2021_OOP
 {
@@ -13,7 +15,13 @@ namespace HW_2021_OOP
 
     public class StopSign : StaticRoadItem
     {
+        public string Type { get; } = "StopSign";
         public StopSign(double distance) : base(distance) { }
+
+        public override char[] GetChar()
+        {
+            return new char[] { 'S' };
+        }
     }
 
     public class Intersection : StaticRoadItem
@@ -28,11 +36,22 @@ namespace HW_2021_OOP
 
     public class SpeedLimit : StaticRoadItem
     {
-        private double speedLimit;
+        public string Type { get; } = "SpeedLimit";
+
+		[JsonProperty("SpeedLimit")]
+        private double speedLimit { get; set; }
 
         public SpeedLimit(double speedLimit, double distance) : base(distance)
         {
             this.speedLimit = speedLimit;
+        }
+
+        public double GetSpeedLimit() { return speedLimit; }
+
+        public override char[] GetChar()
+        {
+            string speedLimitString = ((int)speedLimit).ToString();
+            return speedLimitString.ToCharArray();
         }
     }
 

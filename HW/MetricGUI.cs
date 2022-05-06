@@ -29,5 +29,31 @@ namespace HW_2021_OOP
         {
             return new StopSign(location / Constants.MetersToKm);
         }
+
+        public override Road GetInterfaceUnitRoad(Road road)
+        {
+            double xPos = road.GetXLocation() * Constants.MetersToKm;
+            double yPos = road.GetYLocation() * Constants.MetersToKm;
+            double len = road.GetLength() * Constants.MetersToKm;
+            return new Road(road.GetName(), xPos, yPos, len, road.GetHeading());
+        }
+
+        public override RoadItem GetInterfaceUnitRoadItem(RoadItem item)
+        {
+            double mileMarker = item.GetMileMarker() * Constants.MetersToKm;
+            if (item is SpeedLimit)
+            {
+                SpeedLimit sl = (SpeedLimit)item;
+                return new SpeedLimit(sl.GetSpeedLimit() * Constants.MpsToKph, mileMarker);
+            }
+            else if (item is StopSign)
+            {
+                return new StopSign(mileMarker);
+            }
+            else
+            {
+                throw new Exception("Unknown road item type");
+            }
+        }
     }
 }

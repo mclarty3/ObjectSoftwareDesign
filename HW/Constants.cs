@@ -15,6 +15,6 @@ namespace HW_2021_OOP
         public const double MetersToMiles = 0.000621371;
         public const double MetersToKm = 0.001;
         public const int CharMapSize = 40;
-        public const double WorldSize = 200.0;
+        public const double WorldSize = 400_000.0;
     }
 }

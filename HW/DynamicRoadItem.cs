@@ -9,6 +9,9 @@ namespace HW_2021_OOP
 
 	public class TrafficLight : DynamicRoadItem
 	{
-
+		public override char[] GetChar()
+		{
+			return new char[] { 'T' };
+		}
 	}
 }

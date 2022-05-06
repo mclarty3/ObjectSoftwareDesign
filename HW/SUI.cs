@@ -24,6 +24,7 @@ namespace HW_2021_OOP
     {
         void PrintRoad(Road road, Object o);
         void PrintCar(Car car, Object o);
+        void PrintRoadItem(RoadItem roadItem, Object o);
     }
 
     class ConsolePrint : IPrintDriver
@@ -37,9 +38,8 @@ namespace HW_2021_OOP
             int CCy = Conversions.WCpointToCCpoint(-road.GetYLocation());
             int distance = 0;
             int CCRoadLength = Conversions.WClengthToCClength(road.GetLength());
-            switch (road.GetHeading())
+            if (road.GetHeading() == Heading.North || road.GetHeading() == Heading.South)
             {
-                case Heading.North:
                     x = (int)CCx;
                     if (x >= 0 && x < Constants.CharMapSize)
                     {
@@ -48,43 +48,93 @@ namespace HW_2021_OOP
                             y = (int)(CCy - distance);
                             if (y >= 0 && y < Constants.CharMapSize)
                             {
-                                cm.map[y][x] = '|';
-                                cm.map[y][x + 2] = '|';
-                                cm.map[y][x + 4] = '|';
+                                for (int i = 0; i < 5; i += 2)
+                                {
+                                    if (cm.map[y][x + i] == ' ')
+                                    {
+                                        cm.map[y][x + i] = '|';
+                                    }
+                                }
                             }
                             distance += 1;
                         }
                     }
-                    break;
-                case Heading.South:
-                    break;
-                case Heading.East:
-                    y = (int)CCy;
-                    if (y >= 0 && y < Constants.CharMapSize)
+            }
+            else if (road.GetHeading() == Heading.East || road.GetHeading() == Heading.West)
+            {
+                y = (int)CCy;
+                if (y >= 0 && y < Constants.CharMapSize)
+                {
+                    while (distance < CCRoadLength)
                     {
-                        while (distance < CCRoadLength)
+                        x = (int)(CCx + distance);
+                        if (x >= 0 && x < Constants.CharMapSize)
                         {
-                            x = (int)(CCx + distance);
-                            if (x >= 0 && x < Constants.CharMapSize)
+                            for (int i = 0; i < 5; i += 2)
                             {
-                                cm.map[y][x] = '-';
-                                cm.map[y + 2][x] = '-';
-                                cm.map[y + 4][x] = '-';
+                                if (cm.map[y + i][x] == ' ')
+                                {
+                                    cm.map[y + i][x] = '-';
+                                }
                             }
-                            distance += 1;
                         }
+                        distance += 1;
                     }
-                    break;
-                case Heading.West:
-                break;
-                default:
-                    break;
+                }
             }
         }
 
         public void PrintCar(Car car, Object o)
         {
 
+        }
+
+        public void PrintRoadItem(RoadItem roadItem, Object o)
+        {
+            CharMatrix cm = (CharMatrix)o;
+            Road thisRoad = roadItem.GetCurrentRoad();
+
+            int x = (int)Conversions.WCpointToCCpoint(thisRoad.GetXLocation());
+            int y = (int)Conversions.WCpointToCCpoint(-thisRoad.GetYLocation());
+
+            double mileMarker = roadItem.GetMileMarker();
+            int mileMarkerDist = (int)Conversions.WClengthToCClength(mileMarker);
+
+			int otherX, otherY;
+            if (thisRoad.GetHeading() == Heading.North)
+            {
+                x -= 1;
+                y = (int)(y - mileMarkerDist);
+                otherY = y;
+                otherX = x + 6;
+            }
+            else if (thisRoad.GetHeading() == Heading.East)
+            {
+                y -= 1;
+                x = (int)(x + mileMarkerDist);
+                otherX = x;
+                otherY = y + 6;
+            }
+
+            else return;
+
+            char[] chars = roadItem.GetChar();
+            if (x - chars.Length >= 0 && x < Constants.CharMapSize && y >= 0 && y < Constants.CharMapSize)
+            {
+                for (int i = 0; i < chars.Length; i++)
+                {
+                    if (thisRoad.GetHeading() == Heading.North || thisRoad.GetHeading() == Heading.South)
+                    {
+                        cm.map[y][x - (chars.Length - i - 1)] = chars[i];
+                        cm.map[otherY][otherX + i] = chars[i];
+                    }
+                    else
+                    {
+                        cm.map[y][x + i] = chars[i];
+                        cm.map[otherY][otherX + i] = chars[i];
+                    }
+                }
+            }
         }
     }
 
@@ -99,6 +149,21 @@ namespace HW_2021_OOP
         public void PrintCar(Car car, Object o)
         {
             // Console.WriteLine("Car: " + car.GetCarName() + " " + car.GetXLocation() + " " + car.GetYLocation() + " " + car.GetHeading());
+        }
+
+        public void PrintStopSign(StopSign stopSign, Object o)
+        {
+
+        }
+
+        public void PrintSpeedLimit(SpeedLimit speedLimit, Object o)
+        {
+
+        }
+
+        public void PrintRoadItem(RoadItem roadItem, Object o)
+        {
+
         }
     }
 }

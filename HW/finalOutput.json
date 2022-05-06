@@ -1,0 +1,58 @@
+{
+  "Roads": [
+    {
+      "Name": "Uptown",
+      "Length": 180.0,
+      "XLocation": 0.0,
+      "YLocation": -90.0,
+      "Heading": 0,
+      "RoadItems": [
+        {
+          "Type": "StopSign",
+          "MileMarker": 0.0
+        },
+        {
+          "Type": "SpeedLimit",
+          "SpeedLimit": 65.0,
+          "MileMarker": 10.0
+        },
+        {
+          "Type": "SpeedLimit",
+          "SpeedLimit": 65.0,
+          "MileMarker": 165.0
+        },
+        {
+          "Type": "StopSign",
+          "MileMarker": 170.0
+        }
+      ]
+    },
+    {
+      "Name": "Crosstown",
+      "Length": 180.0,
+      "XLocation": -90.0,
+      "YLocation": 0.0,
+      "Heading": 2,
+      "RoadItems": [
+        {
+          "Type": "StopSign",
+          "MileMarker": 10.0
+        },
+        {
+          "Type": "SpeedLimit",
+          "SpeedLimit": 22.2222,
+          "MileMarker": 20.0
+        },
+        {
+          "Type": "SpeedLimit",
+          "SpeedLimit": 22.0,
+          "MileMarker": 160.0
+        },
+        {
+          "Type": "StopSign",
+          "MileMarker": 170.0
+        }
+      ]
+    }
+  ]
+}

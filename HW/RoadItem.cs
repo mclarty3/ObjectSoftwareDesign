@@ -1,13 +1,21 @@
 using System;
+using Newtonsoft.Json;
+using JsonSubTypes;
 
 namespace HW_2021_OOP
 {
+	[JsonConverter(typeof(JsonSubtypes), "Type")]
 	public abstract class RoadItem
 	{
-		private Road currentRoad;
-		private RoadItem previous;
-		private RoadItem next;
-		private double mileMarker = 0.0f;
+		string Type { get; }
+		private Road currentRoad = null;
+		private RoadItem previous = null;
+		private RoadItem next = null;
+
+		[JsonProperty("MileMarker")]
+		private double mileMarker { get; set; } = 0.0f;
+
+		public virtual char[] GetChar() { return new char[] { ' ' }; }
 
 		public void SetCurrentRoad(Road road)
 		{

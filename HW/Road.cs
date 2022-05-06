@@ -20,7 +20,7 @@ namespace HW_2021_OOP
         private Heading heading { get; set; }
         [JsonProperty("RoadItems")]
         private List<RoadItem> roadItems { get; set; }
-        private RoadItem head;
+        private RoadItem head = null;
 
         public static int NumOfRoads = 0;
 
@@ -34,15 +34,26 @@ namespace HW_2021_OOP
             heading = hdg;
             xlocation = locX;
             ylocation = locY;
+            roadItems = new List<RoadItem>();
 
             NumOfRoads++;
         }
 
+        public string GetName() { return name; }
+
+        public void SetName(string name) { this.name = name; }
+
         public double GetLength() { return length; }
+
+        public void SetLength(double len) { length = len; }
 
         public double GetXLocation() { return xlocation; }
 
+        public void SetXLocation(double locX) { xlocation = locX; }
+
         public double GetYLocation() { return ylocation; }
+
+        public void SetYLocation(double locY) { ylocation = locY; }
 
         public Heading GetHeading() { return heading; }
 
@@ -50,23 +61,33 @@ namespace HW_2021_OOP
 
         public void AddRoadItem(RoadItem roadItem)
         {
-           roadItem.SetCurrentRoad(this);
-           RoadItem currentItem = head;
-           while (currentItem.GetNext() != null)
-           {
-               currentItem = currentItem.GetNext();
-               if (currentItem.GetMileMarker() > roadItem.GetMileMarker())
-               {
-                   InsertNewItemBefore(currentItem, roadItem);
-                   return;
-               }
-           }
-           InsertNewItemAfter(currentItem, roadItem);
+            roadItem.SetCurrentRoad(this);
+            if (head == null)
+            {
+                 head = roadItem;
+                 return;
+            }
+            RoadItem currentItem = head;
+            while (currentItem.GetNext() != null)
+            {
+                currentItem = currentItem.GetNext();
+                if (currentItem.GetMileMarker() > roadItem.GetMileMarker())
+                {
+                    InsertNewItemBefore(currentItem, roadItem);
+                    return;
+                }
+            }
+
+            InsertNewItemAfter(currentItem, roadItem);
         }
 
         public void Print(IPrintDriver print, Object o)
         {
             print.PrintRoad(this, o);
+            foreach (RoadItem item in GetRoadItems())
+            {
+                print.PrintRoadItem(item, o);
+            }
         }
 
         private void InsertNewItemBefore(RoadItem current, RoadItem newItem)
@@ -83,6 +104,18 @@ namespace HW_2021_OOP
             current.SetNext(newItem);
             newItem.SetPrevious(current);
             if (newItem.GetNext() != null) newItem.GetNext().SetPrevious(newItem);
+        }
+
+        public List<RoadItem> GetRoadItems()
+        {
+            List<RoadItem> items = new List<RoadItem>();
+            RoadItem current = head;
+            while (current != null)
+            {
+                items.Add(current);
+                current = current.GetNext();
+            }
+            return items;
         }
     }
 }
